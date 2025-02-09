@@ -6,7 +6,7 @@ const handler = async (req: Request): Promise<Response> => {
 
   // Menambahkan header CORS untuk mengizinkan permintaan dari domain tertentu
   const headers = new Headers();
-  headers.set("Access-Control-Allow-Origin", "*"); // Mengizinkan permintaan dari localhost:3000
+  headers.set("Access-Control-Allow-Origin", "*"); // Mengizinkan permintaan dari semua domain
   headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS"); // Izinkan metode yang dibutuhkan
   headers.set("Access-Control-Allow-Headers", "Content-Type"); // Izinkan header yang dibutuhkan
 
@@ -28,8 +28,10 @@ const handler = async (req: Request): Promise<Response> => {
       const html = await response.text();
       return new Response(html, {
         headers: {
-          ...headers, // Menambahkan header CORS ke respons
-          "Content-Type": "text/html",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type",
+          "Content-Type": "application/json",
         },
       });
     } else {
